@@ -1,0 +1,41 @@
+09:30:35 **** Incremental Build of configuration Debug for project QS SWITCH COntroller ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "QS SWITCH COntroller.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\0163022\STM32CubeIDE\workspace_1.14.1\QS SWITCH COntroller\STM32F051C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="QS SWITCH COntroller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: QS SWITCH COntroller.elf
+ 
+arm-none-eabi-size  QS\ SWITCH\ COntroller.elf 
+arm-none-eabi-objdump -h -S QS\ SWITCH\ COntroller.elf  > "QS SWITCH COntroller.list"
+   text	   data	    bss	    dec	    hex	filename
+   6616	     20	   1636	   8272	   2050	QS SWITCH COntroller.elf
+arm-none-eabi-objcopy  -O ihex QS\ SWITCH\ COntroller.elf  "QS SWITCH COntroller.hex"
+Finished building: default.size.stdout
+ 
+Finished building: QS SWITCH COntroller.hex
+ 
+Finished building: QS SWITCH COntroller.list
+ 
+09:37:58 **** Incremental Build of configuration Debug for project QS SWITCH COntroller ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "QS SWITCH COntroller.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\0163022\STM32CubeIDE\workspace_1.14.1\QS SWITCH COntroller\STM32F051C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="QS SWITCH COntroller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: QS SWITCH COntroller.elf
+ 
+arm-none-eabi-size  QS\ SWITCH\ COntroller.elf 
+arm-none-eabi-objdump -h -S QS\ SWITCH\ COntroller.elf  > "QS SWITCH COntroller.list"
+   text	   data	    bss	    dec	    hex	filename
+   6500	     20	   1636	   8156	   1fdc	QS SWITCH COntroller.elf
+arm-none-eabi-objcopy  -O ihex QS\ SWITCH\ COntroller.elf  "QS SWITCH COntroller.hex"
+Finished building: default.size.stdout
+ 
+Finished building: QS SWITCH COntroller.hex
+ 
+Finished building: QS SWITCH COntroller.list
+ 
+09:38:04 **** Incremental Build of configuration Debug for project QS SWITCH COntroller ****
+make -j20 all 
+arm-none-eabi-size  QS\ SWITCH\ COntroller.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6500	     20	   1636	   8156	   1fdc	QS SWITCH COntroller.elf
+Finished building: default.size.stdout
+ 
