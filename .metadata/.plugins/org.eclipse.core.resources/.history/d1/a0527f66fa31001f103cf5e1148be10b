@@ -1,0 +1,92 @@
+/*
+ * peripherals.c
+ *
+ *  Created on: Jun 24, 2024
+ *      Author: 0163022
+ */
+
+#include "peripherals.h"
+
+void GPIO_Init(PeripheralHandles *peripheral_handles)
+    {
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+
+    GPIO_InitTypeDef GPIO_InitStruct =
+	{
+	0
+	};
+
+    // Configure LED pins
+    GPIO_InitStruct.Pin = WHITE_LED_PIN | GREEN1_LED_PIN | GREEN2_LED_PIN
+	    | RED_LED_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    // Configure input pins
+    GPIO_InitStruct.Pin = ES_PIN | DCS_PIN | ACS_PIN | DCFB_PIN | ACFB_PIN
+	    | BUTTON_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    // Configure motor control pins
+    GPIO_InitStruct.Pin = MOTOR_PIN_1 | MOTOR_PIN_2;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+    }
+
+void ADC_Init(PeripheralHandles *peripheral_handles)
+    {
+    __HAL_RCC_ADC1_CLK_ENABLE();
+
+    peripheral_handles->hadc1.Instance = ADC1;
+    peripheral_handles->hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+    peripheral_handles->hadc1.Init.ContinuousConvMode = ENABLE;
+    peripheral_handles->hadc1.Init.DiscontinuousConvMode = DISABLE;
+    peripheral_handles->hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+    peripheral_handles->hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+    peripheral_handles->hadc1.Init.NbrOfConversion = 1;
+    HAL_ADC_Init(&peripheral_handles->hadc1);
+    }
+
+void TIM1_Init(PeripheralHandles *peripheral_handles)
+    {
+    __HAL_RCC_TIM1_CLK_ENABLE();
+
+    peripheral_handles->htim1.Instance = TIM1;
+    peripheral_handles->htim1.Init.Prescaler = 8000 - 1; // 8 MHz / 8000 = 1 KHz
+    peripheral_handles->htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+    peripheral_handles->htim1.Init.Period = 5000 - 1; // 1 KHz / 5000 = 0.2 Hz (5 seconds)
+    peripheral_handles->htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    HAL_TIM_Base_Init(&peripheral_handles->htim1);
+
+    HAL_NVIC_SetPriority(TIM1_UP_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(TIM1_UP_IRQn);
+    }
+
+void TIM2_Init(PeripheralHandles *peripheral_handles)
+    {
+    __HAL_RCC_TIM2_CLK_ENABLE();
+
+    peripheral_handles->htim2.Instance = TIM2;
+    peripheral_handles->htim2.Init.Prescaler = 8000 - 1; // 8 MHz / 8000 = 1 KHz
+    peripheral_handles->htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+    peripheral_handles->htim2.Init.Period = 1000 - 1; // 1 KHz / 1000 = 1 Hz (1 second)
+    peripheral_handles->htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    HAL_TIM_Base_Init(&peripheral_handles->htim2);
+
+    HAL_NVIC_SetPriority(TIM2_IRQn, 1, 0);
+    HAL_NVIC_EnableIRQ(TIM2_IRQn);
+    }
+
+void IWDG_Init(PeripheralHandles *peripheral_handles)
+    {
+    peripheral_handles->hiwdg.Instance = IWDG;
+    peripheral_handles->hiwdg.Init.Prescaler = IWDG_PRESCALER_64;
+    peripheral_handles->hiwdg.Init.Reload = 1250; // 40 kHz / 64 / 1250 = 0.5 seconds
+    HAL_IWDG_Init(&peripheral_handles->hiwdg);
+    }

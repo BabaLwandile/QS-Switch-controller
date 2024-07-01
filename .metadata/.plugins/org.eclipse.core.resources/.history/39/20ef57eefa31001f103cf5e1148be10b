@@ -1,0 +1,10 @@
+/*
+ * fault_handling.c
+ *
+ *  Created on: Jun 24, 2024
+ *      Author: 0163022
+ */
+
+#include "fault_handling.h"
+
+

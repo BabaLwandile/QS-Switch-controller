@@ -1,0 +1,62 @@
+/*
+ * fault_handling.c
+ *
+ *  Created on: Jun 24, 2024
+ *      Author: 0163022
+ */
+
+#include "fault_handling.h"
+#include "main.h"
+
+// Fault definitions
+#define FAULT_NONE 0
+#define FAULT_STALL_TOUT 1
+#define FAULT_MISMATCH 2
+#define FAULT_ES_NOT_ACTIVE 3
+#define FAULT_INBETWEEN_STATE 4
+
+void Check_Faults(void)
+    {
+    //current measurement and check for stalling current
+
+    uint32_t adcValue = HAL_ADC_GetValue(&hadc1);
+    float current = (float) adcValue * 3.3 / 4095.0; // Assuming 12-bit ADC and 3.3V reference
+
+    if (current > 3.0)
+	{
+	fault = FAULT_STALL_TOUT;
+	}
+    if (HAL_GPIO_ReadPin(GPIOA, GPIO_DCFB) == GPIO_PIN_RESET))
+	{
+
+	}
+
+// Implement other fault checks
+
+    switch (fault)
+	{
+    case FAULT_STALL_TOUT:
+	HAL_GPIO_WritePin(GPIOC, RED_LED_PIN, GPIO_PIN_SET);
+	break;
+    case FAULT_MISMATCH:
+	HAL_GPIO_WritePin(GPIOC, RED_LED_PIN, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GREEN1_LED_PIN, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GREEN2_LED_PIN, GPIO_PIN_SET);
+	break;
+    case FAULT_ES_NOT_ACTIVE:
+	HAL_GPIO_WritePin(GPIOC, RED_LED_PIN, GPIO_PIN_SET);
+	HAL_GPIO_TogglePin(GPIOC, WHITE_LED_PIN);
+	HAL_Delay(500);
+	break;
+    case FAULT_INBETWEEN_STATE:
+	HAL_GPIO_WritePin(GPIOC, RED_LED_PIN, GPIO_PIN_SET);
+	Motor_Control(MOTOR_CLOCKWISE);  // Switch to safe mode
+	while (HAL_GPIO_ReadPin(GPIOC, ACFB_PIN) == GPIO_PIN_RESET)
+	    {
+	    Check_Faults();
+	    }
+	HAL_GPIO_WritePin(GPIOC, GREEN2_LED_PIN, GPIO_PIN_SET);
+	break;
+	}
+    }
+

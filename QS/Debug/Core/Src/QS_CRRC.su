@@ -1,0 +1,3 @@
+../Core/Src/QS_CRRC.c:22:6:runQSLoop	16	static
+../Core/Src/QS_CRRC.c:82:6:Transition	8	static
+../Core/Src/QS_CRRC.c:156:6:Fault	88	static

@@ -1,0 +1,4 @@
+../Core/Src/QS_SWITCH_IO.c:16:10:readAnalogueInput	1
+../Core/Src/QS_SWITCH_IO.c:28:6:setOutput	7
+../Core/Src/QS_SWITCH_IO.c:56:11:getInput	7
+../Core/Src/QS_SWITCH_IO.c:84:6:MX_ADC_Init	3

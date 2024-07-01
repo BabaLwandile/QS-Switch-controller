@@ -1,0 +1,60 @@
+/*
+ * peripherals.h
+ *
+ *  Created on: Jun 24, 2024
+ *      Author: 0163022
+ */
+
+#ifndef INC_PERIPHERALS_H_
+#define INC_PERIPHERALS_H_
+
+#include "stm32f1xx_hal.h"
+
+typedef struct
+    {
+	TIM_HandleTypeDef htim1;
+	TIM_HandleTypeDef htim2;
+	ADC_HandleTypeDef hadc1;
+	IWDG_HandleTypeDef hiwdg;
+    } PeripheralHandles;
+
+typedef struct
+    {
+	uint16_t white;
+	uint16_t green1;
+	uint16_t green2;
+	uint16_t red;
+    } LEDConfig;
+
+typedef struct
+    {
+	uint16_t es;
+	uint16_t dcs;
+	uint16_t acs;
+	uint16_t dcfb;
+	uint16_t acfb;
+	uint16_t button;
+    } PinConfig;
+
+#define WHITE_LED_PIN GPIO_PIN_0
+#define GREEN1_LED_PIN GPIO_PIN_1
+#define GREEN2_LED_PIN GPIO_PIN_2
+#define RED_LED_PIN GPIO_PIN_3
+
+#define ES_PIN GPIO_PIN_4
+#define DCS_PIN GPIO_PIN_5
+#define ACS_PIN GPIO_PIN_6
+#define DCFB_PIN GPIO_PIN_7
+#define ACFB_PIN GPIO_PIN_8
+#define BUTTON_PIN GPIO_PIN_9
+
+#define MOTOR_PIN_1 GPIO_PIN_10
+#define MOTOR_PIN_2 GPIO_PIN_11
+
+void GPIO_Init(PeripheralHandles *peripheral_handles);
+void ADC_Init(PeripheralHandles *peripheral_handles);
+void TIM1_Init(PeripheralHandles *peripheral_handles);
+void TIM2_Init(PeripheralHandles *peripheral_handles);
+void IWDG_Init(PeripheralHandles *peripheral_handles);
+
+#endif /* INC_PERIPHERALS_H_ */

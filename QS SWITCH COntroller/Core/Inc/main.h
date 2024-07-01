@@ -75,6 +75,7 @@ void Error_Handler(void);
 #define GPIO_ACFB_GPIO_Port GPIOA
 #define GPIO_Manual_Pin GPIO_PIN_6
 #define GPIO_Manual_GPIO_Port GPIOA
+#define GPIO_Manual_EXTI_IRQn EXTI4_15_IRQn
 #define GPIO_Foward_Pin GPIO_PIN_0
 #define GPIO_Foward_GPIO_Port GPIOB
 #define GPIO_Reverse_Pin GPIO_PIN_2

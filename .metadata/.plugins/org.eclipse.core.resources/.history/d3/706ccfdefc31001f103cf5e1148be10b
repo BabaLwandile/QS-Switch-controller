@@ -1,0 +1,30 @@
+/*
+ * fault_handling.c
+ *
+ *  Created on: Jun 24, 2024
+ *      Author: 0163022
+ */
+
+#include "fault_handling.h"
+
+// Fault definitions
+#define FAULT_NONE 0
+#define FAULT_STALL_TOUT 1
+#define FAULT_MISMATCH 2
+#define FAULT_ES_NOT_ACTIVE 3
+#define FAULT_INBETWEEN_STATE 4
+
+void Check_Faults(void)
+    {
+    //current measurement and check for stalling current
+    uint32_t adcValue = HAL_ADC_GetValue(&hadc1);
+    float current = (float) adcValue * 3.3 / 4095.0; // Assuming 12-bit ADC and 3.3V reference
+
+    if (current > 3.0)
+	{
+	fault = FAULT_STALL_TOUT;
+	}
+
+    // Implement other fault checks
+    }
+
